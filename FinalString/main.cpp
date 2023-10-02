@@ -5,6 +5,10 @@ std::string spaces_str(std::string str);
 
 bool is_spam(std::string str);
 
+int str_sum(std::string str);
+
+std::string lowerCamelCase(std::string str);
+
 int main() {
 	setlocale(LC_ALL, "Russian");
 
@@ -50,15 +54,65 @@ int main() {
 	std::cout << "Путь:     " << path << "\n\n";*/
 
 
-	// Задача 4. 
+	// Задача 4. Результат из строки суммы чисел
 
+	/*std::cout << "Задача 4.\nВведите строку -> ";
+	std::string str4;
+	std::getline(std::cin, str4);
 
+	std::cout << "Summ value = " << str_sum(str4) << "\n\n";*/
 
+	// Задача 5. lowerCamelCase желаемое имя переменной
+
+	std::cout << "Задача 5.\n";
+
+	std::cout << "Hello World = " << lowerCamelCase("Hello World") << "\n\n";
+	std::cout << "my old friends = " << lowerCamelCase("my old friends") << "\n\n";
+	std::cout << "Oranges = " << lowerCamelCase("Oranges") << "\n\n";
 
 
 
 	return 0;
 }
+
+
+std::string lowerCamelCase(std::string str) {
+	for (int i = 0; i < str.length(); i++) {
+		str[i] = std::tolower(str[i]);
+	}
+	int index1 = 0;
+	int index2 = 0;
+
+	for (int i = 0; i < str.length(); i++) {
+		index2 = str.find(" ", index1);
+		if (index2 != -1) {
+			str[index2 + 1] = std::toupper(str[index2 + 1]);
+			str.replace(index2,1,"");
+			index1 = index2;
+		}
+	}
+	return str;
+}
+
+
+int str_sum(std::string str) {
+	int index1 = 0;
+	int index2 = 0;
+	int sum = 0;
+	for (int i = 0; i < str.length(); i++) {
+		
+		if (index2 != -1) {
+			index2 = str.find("+", index1);
+			sum += std::stoi(str.substr(index1, index2 - index1));
+			index1 = index2 + 1;
+		}
+		
+	}
+	
+	return sum;
+}
+
+
 
 bool is_spam(std::string str) {
 	// приведение строки к нижнему регитру для 
